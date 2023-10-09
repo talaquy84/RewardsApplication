@@ -28,7 +28,7 @@ public class RewardsController {
     @GetMapping(value = "/customers/{customerId}", produces = "application/json")
     public ResponseEntity<?> getCustomerById(@PathVariable Integer customerId){
         Optional<Customer> customer = rewardsService.getCustomerById(customerId);
-        if(customer == null){
+        if(!customer.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
         }
         return ResponseEntity.ok().body(customer);
@@ -43,7 +43,7 @@ public class RewardsController {
     public ResponseEntity<?> getRewardsById(@PathVariable Integer customerId){
         Rewards rewards = rewardsService.getRewardsByCustomerId(customerId);
         Optional<Customer> customer = rewardsService.getCustomerById(customerId);
-        if(customer == null){
+        if(!customer.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
         }
         return ResponseEntity.ok().body(rewards);
