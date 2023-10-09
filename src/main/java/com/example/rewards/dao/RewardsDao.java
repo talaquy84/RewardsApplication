@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RewardsDao {
@@ -72,8 +73,8 @@ public class RewardsDao {
         return Timestamp.valueOf(LocalDateTime.now().minusDays(days));
     }
 
-    public Customer getCustomerById(Integer customerId){
-        Customer customer = customerRepository.findByCustomerId(customerId);
+    public Optional<Customer> getCustomerById(Integer customerId){
+        Optional<Customer> customer = Optional.ofNullable(customerRepository.findByCustomerId(customerId));
         logger.debug("Customer: ", customer);
         return customer;
     }

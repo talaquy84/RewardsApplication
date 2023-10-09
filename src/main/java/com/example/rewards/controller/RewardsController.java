@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("rewards")
 public class RewardsController {
@@ -25,7 +27,7 @@ public class RewardsController {
      * */
     @GetMapping(value = "/customers/{customerId}", produces = "application/json")
     public ResponseEntity<?> getCustomerById(@PathVariable Integer customerId){
-        Customer customer = rewardsService.getCustomerById(customerId);
+        Optional<Customer> customer = rewardsService.getCustomerById(customerId);
         if(customer == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
         }
@@ -40,7 +42,7 @@ public class RewardsController {
     @GetMapping(value ="/rewards/{customerId}", produces = "application/json")
     public ResponseEntity<?> getRewardsById(@PathVariable Integer customerId){
         Rewards rewards = rewardsService.getRewardsByCustomerId(customerId);
-        Customer customer = rewardsService.getCustomerById(customerId);
+        Optional<Customer> customer = rewardsService.getCustomerById(customerId);
         if(customer == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
         }
