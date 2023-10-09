@@ -28,6 +28,10 @@ public class RewardsService {
         return rewardsDao.getCustomerById(customerId);
     }
 
+    /*
+     * Calculate total reward amount based on List of spending
+     * Return total reward amount
+     * */
     public long transactionsToRewardPoints(List<Transaction> transactions){
         long totalRewards = 0;
         for(Transaction t: transactions){
@@ -38,6 +42,10 @@ public class RewardsService {
         return totalRewards;
     }
 
+    /*
+     * Calculate rewards based on amount spending
+     * Return reward amount
+     * */
     public long rewardsCalculation(double transactionAmount){
         if (transactionAmount > Constants.firstRewardLevel && transactionAmount <= Constants.secondRewardLevel){
             return Math.round((transactionAmount - Constants.firstRewardLevel) * Constants.rewardRatio);
@@ -47,6 +55,10 @@ public class RewardsService {
         return 0;
     }
 
+    /*
+     * Calculate total reward amount based on last 3 months spending
+     * Return total reward amount
+     * */
     @Transactional
     public Rewards getRewardsByCustomerId(Integer customerId){
         Timestamp lastMonthTimestamp = daysToTimestamp(Constants.daysPerMonth);

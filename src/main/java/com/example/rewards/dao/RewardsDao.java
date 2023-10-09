@@ -23,10 +23,16 @@ public class RewardsDao {
     @Autowired
     private CustomerRepository customerRepository;
 
+    /*
+    * Return all transaction of customer based on start date and end date
+    * */
     public List<Transaction> getTransactionByCustomerIdAndDate(Integer customerId, Timestamp startDate, Timestamp endDate){
        return  transactionRepository.findAllByCustomerIdAndTransactionDateBetween(customerId, startDate, endDate);
     }
 
+    /*
+    * Return customer information based on Id
+    * */
     public Optional<Customer> getCustomerById(Integer customerId){
         Optional<Customer> customer = Optional.ofNullable(customerRepository.findByCustomerId(customerId));
         logger.debug("Customer: ", customer);
